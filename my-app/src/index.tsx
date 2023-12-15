@@ -2,21 +2,7 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { SquareValue } from './types/square-value'
-
-interface SquareProps {
-  value: SquareValue
-  onClick: () => void
-}
-
-function Square ({ value, onClick }: SquareProps ) {
-  return (
-    <button
-      className="square"
-      onClick={() => onClick()}>
-      {value}
-    </button>
-  )
-}
+import Square from './square'
 
 interface BordProps {
   squares: SquareValue[]
