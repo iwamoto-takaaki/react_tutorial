@@ -2,45 +2,11 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { SquareValue } from './types/square-value'
-import Square from './square'
-
-interface BordProps {
-  squares: SquareValue[]
-  onClick: (i: number) => void
-}
-
-function Board (props: BordProps) {
-  const renderSquare = (i: number) => {
-    return <Square 
-      value={props.squares[i]} 
-      onClick={() => props.onClick(i)}
-    />;
-  }
-
-  return (
-    <div>
-      <div className="board-row">
-        {renderSquare(0)}
-        {renderSquare(1)}
-        {renderSquare(2)}
-      </div>
-      <div className="board-row">
-        {renderSquare(3)}
-        {renderSquare(4)}
-        {renderSquare(5)}
-      </div>
-      <div className="board-row">
-        {renderSquare(6)}
-        {renderSquare(7)}
-        {renderSquare(8)}
-      </div>
-    </div>
-  )
-}
+import Board from './bord'
 
 function Game() {
-  const [ state, setState ] = useState({
-    history: [{squares: Array(9).fill(null)}],
+  const [state, setState] = useState({
+    history: [{ squares: Array(9).fill(null) }],
     stepNumber: 0,
     xIsNext: true,
   })
@@ -50,10 +16,10 @@ function Game() {
     const current = history[history.length - 1]
     const squares = current.squares.slice()
     if (calculateWinner(squares) || squares[i]) return
-    
-    squares[i] = state.xIsNext? 'X': 'O'
+
+    squares[i] = state.xIsNext ? 'X' : 'O'
     setState({
-      history: history.concat([{squares: squares}]),
+      history: history.concat([{ squares: squares }]),
       stepNumber: history.length,
       xIsNext: !state.xIsNext
     })
@@ -73,8 +39,8 @@ function Game() {
 
   const moves = history.map((step, move) => {
     const desc = move ?
-      'Go to move #' + move:
-      'Go to game start' 
+      'Go to move #' + move :
+      'Go to game start'
     return (
       <li key={move}>
         <button onClick={() => jumpTo(move)}>{desc}</button>
@@ -86,7 +52,7 @@ function Game() {
     if (winner) {
       return 'Winner: ' + winner
     } else {
-      return 'Next player: ' + (state.xIsNext? 'X': 'O');
+      return 'Next player: ' + (state.xIsNext ? 'X' : 'O');
     }
   }
 
